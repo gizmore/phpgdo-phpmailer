@@ -1,0 +1,16 @@
+{
+  "name": "gizmore/phpgdo-phpmailer",
+  "description": "Composer dependencies for phpgdo-phpmailer multiprovider module Mailer.",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2",
+    "phpmailer/phpmailer": "*"
+  },
+  "authors": [
+    {
+      "name": "gizmore",
+      "email": "gizmore@wechall.net"
+    }
+  ]
+}
