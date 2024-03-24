@@ -54,17 +54,20 @@ final class Mailer
 	{
 // 		$cc = $mail->getCC();
 // 		$bcc = $mail->getBCC();
-		$to = $mail->getUTF8Receiver();
-		$from = $mail->getUTF8Sender();
+//		$to = $mail->getUTF8Receiver();
+//		$from = $mail->getUTF8Sender();
 		$subject = $mail->getUTF8Subject();
 		$random_hash = sha1(microtime(true));
 		$bound_mix = "GDOv7-MIX-{$random_hash}";
 		$bound_alt = "GDOv7-ALT-{$random_hash}";
 		$headers = "Content-Type: multipart/mixed; boundary=\"{$bound_mix}\"" . self::HEADER_NEWLINE .
-			'MIME-Version: 1.0' . self::HEADER_NEWLINE . 'Content-Transfer-Encoding: 8bit' . self::HEADER_NEWLINE .
+			'MIME-Version: 1.0' . self::HEADER_NEWLINE .
+            'Content-Transfer-Encoding: 8bit' . self::HEADER_NEWLINE .
             'Message-ID: ' . $mail->getMessageId() . self::HEADER_NEWLINE .
-			'X-Mailer: PHP' . self::HEADER_NEWLINE . 'From: ' . $from . self::HEADER_NEWLINE . 'Reply-To: ' .
-			$mail->getUTF8Reply() . self::HEADER_NEWLINE . 'Return-Path: ' . $mail->getUTF8Return();
+			'X-Mailer: PHP' . self::HEADER_NEWLINE .
+//            'From: ' . $from . self::HEADER_NEWLINE .
+            'Reply-To: ' . $mail->getUTF8Reply() . self::HEADER_NEWLINE .
+            'Return-Path: ' . $mail->getUTF8Return();
 
 		$message = "--$bound_mix\n";
 		$message .= "Content-Type: multipart/alternative; boundary=\"$bound_alt\"\n";
@@ -107,7 +110,7 @@ final class Mailer
 		}
 
 		$message .= "--$bound_mix--\n\n";
-        return self::sendPHPMailer($from, $to, $subject, $message, $headers);
+        return self::sendPHPMailer($mail, $subject, $message, $headers);
 //		return @mail($to, $subject, $message, $headers);
 	}
 
